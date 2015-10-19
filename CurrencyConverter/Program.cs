@@ -6,21 +6,42 @@ using System.Threading.Tasks;
 
 namespace CurrencyConverter
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var converter = new CurrencyConverter();
+            while (true)
+            {
+                var converter = new CurrencyConverter();
 
-            converter.Country = "EUR";
-            converter.Amount = 250.50;
+                Console.Write("Amount : ");
+                converter.Amount = Convert.ToDouble(Console.ReadLine());
 
-            converter.Convert();
+                Console.Write("CountryCode : ");
+                converter.Country = Console.ReadLine();
 
-            Console.WriteLine("Amount = " + converter.Result);
-            Console.WriteLine("Charge = " + converter.Charge);
+                if (converter.Amount > 10000)
+                {
+                    Console.WriteLine("Amount exceeds max limit");
+                }
+                else
+                {
+                    converter.Convert();
 
-            Console.ReadKey();
+                    Console.WriteLine("Amount = " + converter.Result);
+                    Console.WriteLine("Fee = " + converter.Fee);
+
+                    var total = converter.Amount + converter.Fee;
+                    Console.WriteLine("Total = " + total);
+                }
+
+                Console.Write("Continue y/n : ");
+                if (Console.ReadKey().KeyChar == 'n')
+                {
+                    return;
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

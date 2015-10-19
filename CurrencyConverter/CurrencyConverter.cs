@@ -9,34 +9,40 @@ namespace CurrencyConverter
         public string Country { get; set; }
         public double Amount { get; set; }
         public double Result { get; set; }
-        public double Charge { get; set; }
+        public double Fee { get; set; }
 
         public void Convert()
         {
             // Get the data
             var data = GetData();
+            double charge = 0;
 
             // Figure out our charge for this transaction
             var charges = data.Tables[0].Rows;
 
+            bool foundIt = false;
+
             foreach (DataRow row in charges)
             {
-                if (Amount < System.Convert.ToDouble(row[0]))
+                if (!foundIt && Amount <= System.Convert.ToDouble(row[0]))
                 {
-                    Charge = System.Convert.ToDouble(row[1]);
+                    charge = System.Convert.ToDouble(row[1]);
+                    foundIt = true;
                 }
             }
 
             double rate = 0;
+            foundIt = false;
 
             // Figure out the conversion rate
             var rates = data.Tables[1].Rows;
 
             foreach (DataRow row in rates)
             {
-                if (Country == row[0].ToString())
+                if (!foundIt && Country == row[0].ToString())
                 {
                     rate = System.Convert.ToDouble(row[1]);
+                    foundIt = true;
                 }
             }
 
@@ -46,9 +52,9 @@ namespace CurrencyConverter
                 return;
             }
 
-            // Do the calculation
+            // Do the calculations
             Result = Amount*rate;
-
+            Fee = Amount * (charge / 100);
         }
 
         public DataSet GetData()

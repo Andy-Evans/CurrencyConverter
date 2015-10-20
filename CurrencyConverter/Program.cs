@@ -36,7 +36,7 @@ namespace CurrencyConverter
                 }
 
                 Console.Write("Continue y/n : ");
-                if (Console.ReadKey().KeyChar == 'n')
+                if (Console.ReadLine() == "n")
                 {
                     return;
                 }

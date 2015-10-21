@@ -16,10 +16,10 @@ namespace CurrencyConverter
             while (true)
             {
 
-                Console.Write("Amount : ");
+                Console.Write("Amount (GBP) : ");
                 Amount = Convert.ToDouble(Console.ReadLine());
 
-                Console.Write("CountryCode : ");
+                Console.Write("CountryCode (USD,EUR,JPY) : ");
                 Country = Console.ReadLine();
 
                 if (Amount > 10000)
@@ -30,14 +30,14 @@ namespace CurrencyConverter
                 {
                     DoConversion();
 
-                    Console.WriteLine("Amount = " + Result);
-                    Console.WriteLine("Fee = " + Fee);
+                    Console.WriteLine("Amount : " + Result + " " + Country);
+                    Console.WriteLine("Fee (GBP) = " + Fee);
 
                     var total = Amount + Fee;
-                    Console.WriteLine("Total = " + total);
+                    Console.WriteLine("Total (GBP) = " + total);
                 }
 
-                Console.Write("Continue y/n : ");
+                Console.Write("Continue ? y/n : ");
                 if (Console.ReadLine() == "n")
                 {
                     return;

@@ -30,7 +30,7 @@ namespace CurrencyConverter_v2
                     Console.WriteLine("Amount exceeds max limit");
                 }
 
-                Console.Write("Continue ? y/n : ");
+                Console.Write("Continue  ? y/n : ");
 
                 if (Console.ReadLine() == "n")
                 {
